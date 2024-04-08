@@ -1,0 +1,90 @@
+include <stdio.h>
+
+#define MAX_ITEMS 100
+
+typedef struct {
+    char articulo[50];
+    float precio;
+    int cantidad;
+    float importe;
+} Item;
+
+int main() {
+    int tipo_factura, cantidad_items;
+    float mayor_valor = 0, suma_importes = 0;
+    Item items[MAX_ITEMS], mayor_item;
+
+    // Ingresar tipo de factura
+    printf("Ingrese el tipo de factura (1: Responsable Inscripto, 2: Consumidor final, 3: Bienes y Servicios): ");
+    scanf("%d", &tipo_factura);
+
+    // Ingresar cantidad de ítems
+    printf("Ingrese la cantidad de ítems en la factura: ");
+    scanf("%d", &cantidad_items);
+
+    // Ingresar detalles de cada ítem
+    for (int i = 0; i < cantidad_items; i++) {
+        printf("\nÍtem %d:\n", i + 1);
+        printf("Ingrese el artículo: ");
+        scanf("%s", items[i].articulo);
+        printf("Ingrese el precio: ");
+        scanf("%f", &items[i].precio);
+        printf("Ingrese la cantidad: ");
+        scanf("%d", &items[i].cantidad);
+
+        // Calcular importe de cada ítem
+        items[i].importe = items[i].precio * items[i].cantidad;
+
+        // Sumar importes
+        suma_importes += items[i].importe;
+
+        // Encontrar ítem de mayor valor
+        if (items[i].importe > mayor_valor) {
+            mayor_valor = items[i].importe;
+            mayor_item = items[i];
+        }
+    }
+
+    // Calcular impuestos o descuentos según el tipo de factura
+    float impuestos_totales;
+    switch (tipo_factura) {
+        case 1:
+            impuestos_totales = suma_importes * 0.105;
+            break;
+        case 2:
+            impuestos_totales = suma_importes * 0.21;
+            break;
+        case 3:
+            impuestos_totales = suma_importes * -0.27; // Descuento del 27%
+            break;
+        default:
+            printf("Tipo de factura no válido.\n");
+            return 1;
+    }
+
+    // Calcular total de la factura
+    float total_factura = suma_importes + impuestos_totales;
+
+    // Calcular promedio de importe por ítem
+    float promedio_importe = suma_importes / cantidad_items;
+
+    // Mostrar resumen de la factura
+    printf("\nResumen de la factura:\n");
+    printf("Total de importes: $%.2f\n", suma_importes);
+    if (tipo_factura == 3) {
+        printf("Descuento (27%%): $%.2f\n", -impuestos_totales);
+    } else {
+        printf("Impuestos: $%.2f\n", impuestos_totales);
+    }
+    printf("Total a pagar: $%.2f\n", total_factura);
+    printf("El promedio de importe por ítem es: $%.2f\n", promedio_importe);
+
+    // Mostrar ítem de mayor valor
+    printf("\nÍtem de mayor valor:\n");
+    printf("Artículo: %s\n", mayor_item.articulo);
+    printf("Precio: $%.2f\n", mayor_item.precio);
+    printf("Cantidad: %d\n", mayor_item.cantidad);
+    printf("Importe: $%.2f\n", mayor_item.importe);
+
+    return 0;
+}
