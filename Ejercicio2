@@ -1,0 +1,48 @@
+// Prototipos de las funciones
+int mayor(int *numeros);
+int repetidos(int numero, int *numeros);
+
+int main() {
+    int numeros[10];
+    int i;
+
+    // Solicitar al usuario que ingrese los números
+    printf("Ingrese 10 numeros:\n");
+    for (i = 0; i < 10; i++) {
+        scanf("%d", &numeros[i]);
+    }
+
+    // Encontrar el número mayor
+    int max = mayor(numeros);
+
+    // Contar las repeticiones del número mayor
+    int cant = repetidos(max, numeros);
+
+    // Mostrar el resultado
+    printf("El numero mayor ingresado fue: %d\n", max);
+    printf("Se repitio %d veces.\n", cant);
+
+    return 0;
+}
+
+// Función para encontrar el número mayor
+int mayor(int *numeros) {
+    int mayor = *numeros;
+    for (int i = 1; i < 10; i++) {
+        if (*(numeros + i) > mayor) {
+            mayor = *(numeros + i);
+        }
+    }
+    return mayor;
+}
+
+// Función para contar las repeticiones de un número en el arreglo
+int repetidos(int numero, int *numeros) {
+    int contador = 0;
+    for (int i = 0; i < 10; i++) {
+        if (*(numeros + i) == numero) {
+            contador++;
+        }
+    }
+    return contador;
+}
