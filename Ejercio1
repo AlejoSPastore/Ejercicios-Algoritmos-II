@@ -1,21 +1,21 @@
 #include <stdio.h>
 
 // Función para encontrar el máximo número en un vector y contar cuántas veces se repite
-void encontrarMaximo(int numeros[], int tamano) {
+void Maximo(int numeros[], int tamano) {
     int maximo = numeros[0];
-    int contador = 1;
+    int cant = 1;
 
     for (int i = 1; i < tamano; i++) {
         if (numeros[i] > maximo) {
             maximo = numeros[i];
-            contador = 1;
+            cant = 1;
         } else if (numeros[i] == maximo) {
-            contador++;
+            cant++;
         }
     }
 
     printf("El mayor número ingresado es: %d\n", maximo);
-    printf("Se repite %d veces.\n", contador);
+    printf("Se repite %d veces.\n", cant);
 }
 
 int main() {
@@ -29,7 +29,7 @@ int main() {
     }
 
     // Llamada a la función para encontrar el máximo y contar repeticiones
-    encontrarMaximo(numeros, 10);
+    Maximo(numeros, 10);
 
     return 0;
 }
